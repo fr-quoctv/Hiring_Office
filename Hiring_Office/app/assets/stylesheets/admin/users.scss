@@ -1,0 +1,125 @@
+.admin_user_title {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  color: #666666 !important;
+  text-decoration: none;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -3px;
+  line-height: 1;
+  text-shadow: #EDEDED 3px 2px 0;
+  position: relative;
+}
+.search_users {
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 3px;
+  input[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+    background: #ededed url(search.png) no-repeat 9px center;
+    border: solid 1px #ccc;
+    padding: 9px 10px 9px 32px;
+    width: 190px;
+    height: 12px;
+    -webkit-border-radius:15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+  }
+  input[type=search]:focus {
+    width: 300px;
+    background-color: #fff;
+    border-color: #66CC75;
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+  }
+}
+
+.table-users {
+  th {
+    text-align: left;
+    background-color: #167F92 !important;
+    color: #FFF;
+    padding: 12px !important;  
+  }
+  td {
+    text-align: left;  
+  }  
+}
+
+.dropdown-fix {
+  background-color: #fff !important;
+  border-color: #000 !important;
+  color: #000 !important;
+  width: 60% !important;
+}
+
+.modal-title-user {
+  text-align: center;
+  color: #42c5f4 !important;
+}
+
+.modal-body-user {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10px;
+}
+
+.social {
+  display: inline;
+}
+
+.info-box-user {
+  display: block;
+  min-height: 45px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+
+.info-box-user small {
+  font-size: 10px;
+}
+
+.info-box-icon-user {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: left;
+  height: 47px;
+  width: 45px;
+  text-align: center;
+  font-size: 35px;
+  line-height: 40px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box-user-content {
+  padding: 5px 10px;
+  margin-left: 50px;
+}
+
+.info-box-user-number {
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.info-box-user-text {
+  display: block;
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}

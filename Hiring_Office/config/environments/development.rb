@@ -50,5 +50,41 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
+  config.action_cable.allowed_request_origins = ["http://localhost:3000"]
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.action_controller.perform_caching = false
+  config.action_mailer.default_url_options = {host: "localhost", port: 3000}
+  # Don't care if the mailer can't send.
+  config.active_job.queue_adapter = :sidekiq
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              "smtp.gmail.com",
+    port:                 587,
+    domain:               "gmail.com",
+    user_name:            ENV["gmail_username"],
+    password:             ENV["gmail_password"],
+    authentication:       "plain",
+    enable_starttls_auto: true
+  }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+    # Detect N+1 queries
+    # Bullet.n_plus_one_query_enable = false
+    # Detect eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
+    # Detect unnecessary COUNT queries which could be avoided
+    # with a counter_cache
+    Bullet.counter_cache_enable = false
+  end
+
+  config.middleware.use I18n::JS::Middleware
 end

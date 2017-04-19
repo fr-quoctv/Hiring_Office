@@ -1,0 +1,145 @@
+.row-bordered:after {
+  content: "";
+  display: block;
+  border: 1px solid #ccc;
+  margin: 0 15px;
+}
+
+.venue-items{
+  height: 200px;
+  background-color: #A8A7A7 !important;
+}
+
+.venue-item-hover:hover {
+  -webkit-transform: scale(1.05,1.05);
+  -moz-transform: scale(1.05,1.05);
+  -o-transform: scale(1.05,1.05);
+  -ms-transform: scale(1.05,1.05);
+  transform: scale(1.05,1.05);
+}
+
+.user-report-button {
+  -webkit-transform: rotate(90deg);
+  -webkit-transform-origin: right top;
+  -moz-transform: rotate(90deg);
+  -moz-transform-origin: right top;
+  -ms-transform: rotate(90deg);
+  -ms-transform-origin: right top;
+  -o-transform: rotate(90deg);
+  -o-transform-origin: right top;
+  transform: rotate(90deg);
+  transform-origin: right top;
+  color: #00464f !important;
+  position: fixed;
+  z-index: 6000;
+  right: 10px;
+  top: 50%;
+  font-size: 20px;
+  padding: 10px;
+  opacity: 0.5;
+  cursor:pointer;
+}
+
+.user-report-button:hover {
+  opacity: 1;
+}
+
+.back-button {
+  transform-origin: right top;
+  color: #00464f !important;
+  position: fixed;
+  z-index: 6000;
+  right: 5px;
+  top: 90%;
+  font-size: 20px;
+  padding: 10px;
+  opacity: 0.5;
+  cursor:pointer;
+  opacity: 1;
+}
+
+.venue-info{
+  min-height: 200px;
+  position: relative;
+  background-color: #18669a !important;
+  a {
+    color: #ffffff;
+  }
+}
+
+.venue-items-info{
+  height: 400px;
+  background-color: #ededed !important;
+  border: 1px dashed;
+}
+
+.gutter{
+  margin-top: 190px;
+}
+
+.address-custom {
+  position: absolute;
+  bottom: 5px;
+  left: 2px;
+}
+
+#map {
+  width: 100%;
+ }
+
+ #gmap_canvas img {
+  max-width: none !important;
+  background: none !important;
+}
+
+.map-info {
+  width: 100%;
+}
+
+.map-show {
+  position: static !important;
+  width: 100%;
+}
+
+.map-edit-venue {
+  position: absolute;
+  width: 100%;
+}
+
+.form-label{
+  position: relative;
+  top: 27px;
+}
+.setting_icon {
+  cursor: pointer;
+}
+.venue_title {
+  color: #FFF;
+  &:hover {
+    color: #FFF;
+    text-decoration: none;
+  }
+}
+.small-custom {
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+  color: #FFF;
+  line-height: 20px;
+  max-height: 60px;
+  i {
+    color: #F00;
+  }
+}
+.background-x {
+  background-color:#2A363B !important;
+}
+.padding-30 {
+  padding: 30px;
+}
+
+.payment-directly-active {
+  border: 2px solid #15b51c;
+  height: 100px;
+  border-radius: 25px;
+}

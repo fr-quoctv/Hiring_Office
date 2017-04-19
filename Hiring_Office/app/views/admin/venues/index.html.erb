@@ -1,0 +1,22 @@
+<%= javascript_include_tag "admin/venues.js" %>
+<% provide :title, t("admin.venues.admin_venues_management_title") %>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <div class="content-header margin-left-0 margin-right-0">
+      <div class="header-section">
+        <h1>
+          <i class="fa fa-cogs"></i><%= t "admin.venues.all_venues" %>
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-0">
+        <%= render "search_venues_form" %>
+      </div>
+      <%= render "total_venues" %>
+    </div>
+    <div id="list_venue">
+      <%= render "list_venue" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<% provide :title, t("users.change_password.title") %>
+<div class="row full-height margin-left-0 margin-right-0 vertical-offset-100">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title title-color">
+          <%= t "users.change_password.title" %>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <%= form_for resource, as: resource_name,
+          url: registration_path(resource_name), html: {method: :put} do |f| %>
+          <%= devise_error_messages! %>
+          <fieldset>
+            <div class="form-group padding-bot-10">
+              <%= f.password_field :current_password, autofocus: true,
+                class: "form-control",
+                placeholder: t("users.change_password.current_password") %>
+            </div>
+            <div class="form-group padding-bot-10">
+              <%= f.password_field :password, autocomplete: "off",
+                class: "form-control",
+                placeholder: t("users.change_password.new_password") %>
+            </div>
+            <div class="form-group padding-bot-10">
+              <%= f.password_field :password_confirmation, autocomplete: "off",
+                class: "form-control",
+                placeholder: t("users.change_password.confirm_new_password") %>
+            </div>
+            <%= f.submit t("users.change_password.save"),
+              class: "btn btn-lg btn-primary btn-block" %>
+          </fieldset>
+        <% end %>
+      </div>
+      <div class="panel-body">
+        <%= link_to t("users.change_password.edit_profile"),
+          edit_user_path(current_user) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>

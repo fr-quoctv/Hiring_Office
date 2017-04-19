@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-0 search_venues">
+    <%= search_form_for @query_venues, id: "search-form", url: admin_venues_path do |f| %>
+      <div class="search-box">
+        <%= f.search_field :address_details_or_name_or_email_cont,
+          placeholder: t("admin.venues.search_venues"), class: "form-control" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<ul class="list-group">
+  <% @users_search.each do |user_search| %>
+    <li class="list-group-item">
+      <%= link_to user_search.name, "javascript:;", class: "click-name-user", data: {id: user_search.id} %>
+    </li>
+  <% end %>
+</ul>

@@ -11,6 +11,30 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
+//= require bootstrap-sprockets
+//= require jquery.transit.min
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require cable.js
+//= require notification.js
+//= require underscore
+//= require gmaps/google
+//= require_tree ./lib
+//= require_tree ./page
+//= require_tree ./search
+//= require_tree ../../../vendor/assets/javascripts
+//= require growl
+//= require bootstrap-sprockets
+//= require wow
+//= require owl.carousel
+//= require chartkick
+//= require i18n
+//= require i18n.js
+//= require i18n/translations
+//= require jquery.raty
+//= require ratyrate
+//= require modernizr.min.js
+
+/* Plugins, libraries */
+//= require jquery-form-validator/form-validator/jquery.form-validator.min.js
+//= require jquery-form-validator/form-validator/jquery.form-validator.js

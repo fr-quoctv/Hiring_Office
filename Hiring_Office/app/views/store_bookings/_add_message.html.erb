@@ -1,0 +1,25 @@
+<div class="modal fade" id="modal_message" tabindex="-1" role="dialog"
+  aria-labelledby="modal_label_message" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_tag booking_path(booking), method: :patch, remote: true do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close"
+            data-dismiss="modal" aria-hidden="true"><%= t ".close" %></button>
+          <h4 class="modal-title" id="modal_label_message"><%= t ".title_modal" %></h4>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3" class="control-label"><%= t ".message" %></label>
+          <div class="col-md-9" >
+            <%= text_field_tag :message, t(".rejected"), class: "form-control" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary"
+            data-dismiss="modal"><%= t ".cancel" %></button>
+          <%= submit_tag t(".submit"), class: "btn btn-primary", id: "sm_close" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+<%= javascript_include_tag "admin/notifications.js" %>
+<nav class="navbar navbar-m2p sidebar navbar-m2p-active" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse"
+        data-target="#bs-sidebar-navbar-collapse-1">
+        <span class="sr-only"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to root_url, class: "navbar-brand" do %>
+        <i class="gi gi-flash"></i>
+        <span class="sidebar-nav-mini-hide">
+          <strong><%= t "layout.site_name" %></strong>
+        </span>
+      <% end %>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+      <div class="nav navbar-nav fixed-sidebar-admin">
+        <% if admin_signed_in? %>
+          <div class="padding-top-10">
+            <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
+              <div class="sidebar-user-avatar">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  <%= image_tag "admin/admin.png" %>
+                </a>
+              </div>
+              <div class="sidebar-user-name"><%= current_admin.email %></div>
+              <div class="sidebar-user-links">
+                <%= link_to destroy_admin_session_path, method: :delete,
+                  title: t("layout.logout") do %>
+                  <i class="gi gi-exit"></i>
+                <% end %>
+              </div>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in padding-left-5">
+              <div class="panel-body">
+                <div>
+                  <span class="dropdown chosen-language admin-chosen-language">
+                    <% if session[:locale].present? %>
+                      <%= link_to url_for(locale: session[:locale]), class:"dropdown-toggle", data: {toggle: "dropdown"} do %>
+                        <%= image_tag "flag/#{session[:locale]}.png", class: "icon-language" %>
+                        <%= Settings.languages[session[:locale]] %>
+                      <% end %>
+                    <% else %>
+                      <%= link_to url_for(locale: :en), class:"dropdown-toggle icon-language", data: {toggle: "dropdown"} do %>
+                        <%= image_tag "flag/en.png", class: "icon-language" %>
+                        <%= Settings.languages.en %>
+                      <% end %>
+                    <% end %>
+                    <ul class="dropdown-menu forAnimate choose-language" role="menu">
+                      <% Settings.languages.keys.each do |lang| %>
+                        <%= link_to url_for(locale: lang) do %>
+                          <%= image_tag "flag/#{lang}.png", class: "icon-language" %>
+                          <%= Settings.languages[lang] %>
+                        <% end %>
+                        <br/>
+                      <% end %>
+                    </ul>
+                    <i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                  </span>
+                  <a href="#" id="open_notification_admin">
+                    <span class="fix-noti">
+                      <i class="fa fa-bell sidebar-nav-icon" id="fix-number"></i>
+                    </span>
+                    <span class="badge" id="notification_count">
+                      <%= render "admin/notifications/counter", counter: count_notification_read_admin %>
+                    </span>
+                  </a>
+                </div>
+                <table class="table admin-working">
+                  <tr>
+                    <td>
+                      <%= link_to content_tag(:i, raw(t "admin.sidebar.statistics"),
+                        class: "fa fa-line-chart"), admin_statistics_url %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= link_to content_tag(:i, raw(t "admin.sidebar.users"),
+                        class: "fa fa-user"), admin_users_url %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= link_to content_tag(:i, raw(t "admin.sidebar.venues"),
+                        class: "fa fa-building"), admin_venues_url %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= link_to content_tag(:i, raw(t "admin.sidebar.activities"),
+                        class: "fa fa-list-alt"), admin_activities_url %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= link_to content_tag(:i, raw(t "admin.sidebar.supports"),
+                        class: "fa fa-comments"), admin_supports_url %>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div>
+            <%= link_to new_admin_session_url do %>
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+              <%= t "layout.login" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
+<% if admin_signed_in? %>
+  <div class="notificationContainer-admin" id="none">
+    <div id="notificationsBody" class="notifications">
+      <div id="notificationsTitle">
+        <%= link_to t("notification.mark_read_all"), admin_reads_path,
+          method: :post, remote: true, class: "pull-right read-all" %>
+      </div>
+      <hr/>
+      <ul id="admin-notificationList">
+        <%= render "admin/notifications/list" %>
+      </ul>
+    </div>
+    <div id="notificationFooter">
+      <%= link_to t("notification.view_all"), admin_notifications_path, id: "color-view" %>
+    </div>
+  </div>
+<% end %>

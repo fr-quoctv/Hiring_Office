@@ -1,0 +1,126 @@
+<div id="sidebar">
+  <div class="sidebar-content">
+    <%= link_to root_url, class: "sidebar-brand" do %>
+      <i class="fa fa-flash"></i>
+      <span class="sidebar-nav-mini-hide">
+        <strong><%= t "layout.site_name" %></strong>
+      </span>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
+        <div class="sidebar-user-avatar">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+            <% if current_user.image %>
+              <%= image_tag current_user.image.picture_url %>
+            <% else %>
+              <%= image_tag "user.jpg" %>
+            <% end %>
+          </a>
+        </div>
+        <div class="sidebar-user-name"><%= current_user.name %></div>
+        <div class="sidebar-user-links">
+          <%= link_to edit_user_path(current_user), method: :get,
+            title: t("layout.profile") do %>
+            <i class="fa fa-user"></i>
+          <% end %>
+          <%= link_to edit_user_registration_path, method: :get, title: t("layout.change_password") do %>
+            <i class="fa fa-unlock"></i>
+          <% end %>
+          <%= link_to destroy_user_session_path, method: :delete,
+            title: t("layout.logout") do %>
+            <i class="gi gi-exit"></i>
+          <% end %>
+        </div>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li>
+          <%= link_to search_spaces_url, class: "active" do %>
+            <i class="fa fa-search sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.search_for_space" %></span>
+          <% end %>
+        </li>
+
+        <li class="sidebar-header">
+          <span class="sidebar-header-title"><%= t "layout.my_cw_spaces" %></span>
+        </li>
+        <li>
+          <%= link_to venues_url, method: :get do %>
+            <i class="fa fa-home sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.my_space" %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to statistics_url, method: :get do %>
+            <i class="fa fa-bar-chart sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.statistics" %></span>
+          <% end %>
+        </li>
+
+        <li class="sidebar-header">
+          <span class="sidebar-header-title"><%= t "layout.my_bookings" %></span>
+        </li>
+        <li>
+          <%= link_to bookings_path, method: :get do %>
+            <i class="fa fa-shopping-cart sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.my_booking" %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to booking_histories_path, method: :get do %>
+            <i class="fa fa-cart-plus sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.booking_history" %></span>
+          <% end %>
+        </li>
+
+        <li class="sidebar-header">
+          <span class="sidebar-header-title"><%= t "layout.orders_management" %></span>
+        </li>
+        <li>
+          <%= link_to store_bookings_path, method: :get do %>
+            <i class="fa fa-cart-arrow-down sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.store_booking" %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to order_histories_path, method: :get do %>
+            <i class="fa fa-history sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.order_history" %></span>
+          <% end %>
+        </li>
+
+        <li class="sidebar-header">
+          <span class="sidebar-header-title"><%= t "layout.payments_management" %></span>
+        </li>
+        <li>
+          <%= link_to confirm_payment_directlies_path, method: :get do %>
+            <i class="fa fa-money sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.payment_directly" %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to confirm_payment_bankings_path, method: :get do %>
+            <i class="fa fa-credit-card sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.payment_banking" %></span>
+          <% end %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="sidebar-nav">
+        <li>
+          <%= link_to search_spaces_url do %>
+            <i class="fa fa-search sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.search_for_space" %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_user_session_url do %>
+            <i class="fa fa-sign-in sidebar-nav-icon"></i>
+            <span class="sidebar-nav-mini-hide"><%= t "layout.login" %></span>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</div>

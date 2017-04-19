@@ -1,0 +1,107 @@
+<%= provide :title, t(".store_bookings") %>
+<%= javascript_include_tag "store_bookings/show.js" %>
+<%= javascript_include_tag "booking_history/calculate_price.js" %>
+<div class="row full-height margin-left-0 margin-right-0">
+  <div class="content-header margin-left-0 margin-right-0">
+    <div class="header-section">
+      <h1>
+        <i class="gi gi-usd"></i><%= t ".store_bookings" %>
+      </h1>
+    </div>
+  </div>
+  <% @venues.each_with_index do |venue, parent_index| %>
+    <%= hidden_field_tag "total_of_venue",
+      @venues.length, id: "total-of-venue" %>
+    <%= hidden_field_tag "current_venue_id",
+      venue.id, id: "current-venue-#{parent_index}" %>
+    <%= hidden_field_tag "total_of_order_for_current_venue",
+      venue.orders.length, id: "total-of-order-#{venue.id}" %>
+    <% if venue.check_condition? %>
+      <%= render "header", venue: venue %>
+      <div class="block custom-block margin-left-0 margin-right-0">
+        <div class="block-title margin-left-0 margin-right-0">
+          <h2 class="venue-name"><strong><%= venue.name %></strong></h2>
+        </div>
+        <div class="block-section padding-0-15">
+          <h4 class="venue-address">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+            <%= venue.address_details %></h4>
+          <address>
+            <i class="fa fa-phone"></i> <%= venue.phone_number %><br>
+            <i class="fa fa-envelope-o"></i>
+            <%= venue.email %>
+          </address>
+        </div>
+        <div class="table-responsive padding-0-15" style="overflow-x: auto;">
+          <table class="table table-vcenter bookings-table hide-all-booking-<%= venue.id %>">
+            <tbody>
+              <% venue.orders.each_with_index do |order, index| %>
+                <% unless order.paid? %>
+                  <%= hidden_field_tag "current_order_id", order.id,
+                    id: "current-order-#{venue.id}-#{index}" %>
+                  <%= hidden_field_tag "total_of_booking_for_current_order",
+                    order.bookings.length, id: "total-of-booking-#{order.id}" %>
+                  <% order.bookings.each_with_index do |booking, booking_index| %>
+                    <% unless booking.accepted? %>
+                      <%= render "add_message", booking: booking %>
+                      <%= hidden_field_tag "current_booking", booking.id,
+                        id: "current-booking-#{order.id}-#{booking_index}" %>
+                      <%= hidden_field_tag "display_state",
+                        check_reject_or_accept(booking),
+                        id: "display-state-#{parent_index}-#{index}-#{booking_index}" %>
+                      <%= hidden_field_tag "booking_ids", booking.id,
+                        class: "booking_ids-#{venue.id}", id: booking.state %>
+                      <%= render "layouts/content_of_booking",
+                        booking: booking,
+                        type: Settings.content_booking.type.store_booking %>
+                      <td class="text-right">
+                        <%= form_tag booking_path(booking), method: :patch do |f| %>
+                          <% unless booking.accepted? %>
+                            <fieldset class="text-left">
+                              <div class="switch-toggle well min-switch" id= "confirm-button">
+                                <input id="rejected-<%= booking.id %>" value="<%= Booking.states.keys[3] %>" name="<%= booking.id %>"
+                                  type="radio" class="state" data-toggle="modal" data-target="#modal_message">
+                                <label for="rejected-<%= booking.id %>" id="rejected-label">
+                                  <%= Booking.states.keys[Settings.rejected] %>
+                                </label>
+                                <input id="requested-<%= booking.id %>" name="<%= booking.id %>" type="radio" class="state" value="<%= Booking.states.keys[1] %>" disabled>
+                                <label for="requested-<%= booking.id %>" id="requested-label">
+                                  <%= Booking.states.keys[Settings.requested] %>
+                                </label>
+                                <input id="accepted-<%= booking.id %>" name="<%= booking.id %>" type="radio" class="state" value="<%= Booking.states.keys[2] %>">
+                                <label for="accepted-<%= booking.id %>" id="accepted-label">
+                                  <%= Booking.states.keys[Settings.accepted] %>
+                                </label>
+                                <a class="btn btn-primary"></a>
+                              </div>
+                            </fieldset>
+                          <% else %>
+                            <% if order.payment_detail.present? %>
+                              <label class="label label-danger" id="label-pending"><%= t "booking_histories.index.pending" %></label>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <tr>
+                <td colspan="12" class="text-right">
+                  <span class="h3">
+                    <strong><%= t ".total_due" %></strong>
+                    <strong id="total-price-<%= venue.id %>"></strong>
+                  </span></p>
+                  <div class="float-right">
+                      <%= button_tag t(".accept_all"),
+                        class: "btn btn-danger check-all color-black padding-2", id: "#{venue.id}" %>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

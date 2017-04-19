@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HiringOffice</title>
+    <%= action_cable_meta_tag %>
+    <title><%= full_title yield(:title) %></title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all",
+      "data-turbolinks-track": true %>
+    <%= stylesheet_link_tag "toggle-switch", media: "all",
+      "data-turbolinks-track": true %>
+    <%= javascript_include_tag "application",
+      "data-turbolinks-track": true %>
+    <%= render "layouts/shared/shim" %>
   </head>
-
   <body>
-    <%= yield %>
+    <%= render "layouts/messages" %>
+    <div id="page-wrapper" class="full-height">
+      <div id="page-container" class="sidebar-partial sidebar-visible-lg
+        sidebar-no-animations full-height">
+        <%= render "layouts/sidebar" %>
+        <div id="main-container" class="full-height">
+          <%= render "layouts/header" %>
+          <div id="page-content" class="full-height">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render "layouts/shared/online_support" if user_signed_in? %>
   </body>
 </html>
