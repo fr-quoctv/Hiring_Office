@@ -105,7 +105,7 @@ chart_service:
   booking_of_venue: "booking_of_venue"
   revenue_of_venue: "revenue_of_venue"
 delay_time: 1
-languages: {en: "English", vi: "Tiếng Việt", jp: "日本の"}
+languages: {en: "English", vi: "Tiếng Việt"}
 rate: "rate"
 reviews:
   per_loading: 10
