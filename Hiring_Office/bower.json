@@ -1,0 +1,21 @@
+{
+  "name": "cwsb_01",
+  "homepage": "https://github.com/framgia/cwsb_01",
+  "authors": [
+    "phamvanbk11 <phamvanbk11@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/assets/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-form-validator": "~2.3.44"
+  }
+}

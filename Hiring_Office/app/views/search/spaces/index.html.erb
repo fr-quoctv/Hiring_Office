@@ -1,0 +1,96 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjfPUSvY404aAP2XJSKwslo15qAITOlI8&libraries=places"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+<script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
+<%= javascript_include_tag "search/search.js" %>
+<div class="row full-height margin-left-0 margin-right-0">
+  <div class="col-md-6 max-height-x padding-left-0 padding-right-0">
+    <div id="map-container full-height">
+      <div id="map"></div>
+    </div>
+  </div>
+  <div class="col-md-6 max-height-x padding-left-0 padding-right-0 map_booking_content scroll-y" id="map_booking_content">
+    <div class="block-full">
+      <div class="widget">
+        <%= form_tag search_spaces_path, method: :get, remote: true, id: "search-space-form" do %>
+            <div class="form-search-space">
+              <div class="input-group">
+                <%= text_field_tag :search, params[:search],
+                  placeholder: t("home.search"),
+                  class: "controls form-control seach-space-button", id: "pac-input" %>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">
+                    <span class="glyphicon glyphicon-search color-glyphicon"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          <% end %>
+      </div>
+      <div class = "widget margin-bottom-x filterSystem" id = "fixed-top-last">
+        <div class="col-md-12">
+          <label id = "label-space"><%= t ".space_type"%><span class="box"></span></label>
+          <div class="col-md-6 col-lg-3">
+            <%= link_to "javascript:;", class: "btn btn-md btn-filter green", id: "desk",
+              data: {target: "desk"} do %>
+              <%= t ".desk" %><span class="box"></span>
+            <% end %>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <%= link_to "javascript:;", class: "btn btn-md btn-filter green", id: "office",
+              data: {target: "prive_office"}  do %>
+              <%= t ".private_office" %><span class="box"></span>
+            <% end %>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <%= link_to "javascript:;", class: "btn btn-md btn-filter green", id: "meeting",
+              data: {target: "meeting_room"}  do %>
+              <%= t ".meeting_room" %><span class="box"></span>
+            <% end %>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <%= link_to "javascript:;", class: "btn btn-md btn-filter green", id: "all",
+              data: {target: "all"}  do %>
+              <%= t ".all" %><span class="box"></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <hr class="hrule-divider--lg">
+          <label id = "label-space">
+            <%= t ".price_range" %>
+          </label>
+        </div>
+        <div class = "col-md-12">
+          <div class="col-md-3">
+            <input id="price_amount" value="<%= Settings.default_price_range %>"
+              disabled="true" class="show_price"></input>
+          </div>
+          <div class="col-md-9">
+            <input id = "filter_slider" class="input-slider" data-slider-step="<%= Settings.data_slider_step %>"
+              data-slider-min="<%= Settings.data_slider_min %>" data-slider-max="<%= Settings.data_slider_max %>"
+              data-slider-value="<%= Settings.data_slider_value %>">
+          </div>
+        </div>
+        <div class="col-md-12">
+          <hr class="hrule-divider--lg">
+          <div class="pull-right">
+            <%= select_tag :space_sort_by,
+              options_for_select(Settings.space_sort_by,
+              params[:space_sort_by]), class: "select-capitalize form-control",
+              include_blank: false, required: false, method: :get, id: "sort-space",
+              data: {url: order_histories_path(params: {status: params[:status]})} %><br/>
+          </div>
+        </div>
+      </div>
+      <%= hidden_field_tag "markers-on-map", @hash.to_json %>
+      <%= hidden_field_tag "current_lat", Settings.default_latitude %>
+      <%= hidden_field_tag "current_lng", Settings.default_latitude %>
+      <div id="search-space-result">
+        <%= render "search_result" %>
+      </div>
+    </div>
+  </div>
+  <div class="max-height-x padding-left-0 padding-right-0 scroll-y
+    map_show_booking_content display-none" id="map_show_booking_content">
+  </div>
+</div>

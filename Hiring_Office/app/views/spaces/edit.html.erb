@@ -1,0 +1,19 @@
+<%= javascript_include_tag "map" %>
+<div class="row full-height margin-left-0 margin-right-0">
+  <div class="col-md-5 max-height-x padding-left-0 padding-right-0">
+    <div class="map-info full-height">
+      <div id="gmap_canvas" class="map-edit-venue full-height"></div>
+    </div>
+  </div>
+  <div class="col-md-7 max-height-x padding-left-0 padding-right-0 scroll-y">
+    <div class="venue-name"><span><%= @venue.name %></span></div>
+    <div class="block full">
+      <div class="block-title">
+      <%= render "shared/form_outline", active_id: "spaces" %>
+    </div>
+    <div class="row margin-left-0 margin-right-0">
+      <%= render "spaces/form", day_reject: @space.day_reject %>
+    </div>
+  </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhyJ3SWFP8U5Xmqe3H3X_iOsR1nw1v6_Q&&libraries=places"></script>

@@ -1,0 +1,8 @@
+<div class="search_users">
+  <%= search_form_for @query_users, url: admin_users_path do |f| %>
+    <div class="search-box">
+      <%= f.search_field :name_or_email_cont,
+        placeholder: t("admin.users.search"), class: "form-control" %> 
+    </div>
+  <% end %>
+</div>

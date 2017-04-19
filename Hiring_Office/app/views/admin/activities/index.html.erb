@@ -1,0 +1,33 @@
+<%= javascript_include_tag "admin/activities.js" %>
+<% provide :title, t("admin.activities.title") %>
+<div class="col-md-10 col-md-offset-1">
+  <div class="content-header margin-left-0 margin-right-0">
+    <div class="header-section">
+      <h1>
+        <i class="fa fa-list-alt"></i><%= t "admin.activities.timeline_title" %>
+      </h1>   
+    </div>
+  </div>
+  <div class="img-timeline">
+  </div>
+  <section id="cd-timeline" class="cd-container">
+    <% @activities.each do |activity| %>
+      <div class="cd-timeline-block">
+        <div class="cd-timeline-content content-custom">
+          <strong class="owner-activity">
+            <li class="gi gi-user"></li>
+            <%= activity.owner.name if activity.owner %>
+          </strong>
+          <%= render_activity activity %>
+        </div> 
+      </div>  
+    <% end %>
+  </section>
+  <div id="more-activity" class="read-more" align="center">
+    <%= button_tag t("admin.activities.read_more"), class: "btn btn-info" %>
+  </div>
+  <div id="next-activity" class="read-more" align="center">
+    <%= link_to_next_page @activities, t("admin.activities.next"),
+      class: "btn btn-info" %>
+  </div>
+</div>

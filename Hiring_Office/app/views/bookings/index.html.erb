@@ -1,0 +1,60 @@
+<% provide :title, t(".your_bookings") %>
+<%= javascript_include_tag "booking/index.js" %>
+<%= javascript_include_tag "booking_history/delete_booking.js" %>
+<%= javascript_include_tag "booking_history/calculate_price.js" %>
+
+<div class="row full-height margin-left-0 margin-right-0">
+  <%= render "header" %>
+  <% @bookings.each_with_index do |venue, index| %>
+    <%= hidden_field_tag "venue_id", venue.first.id , class: "venue_id-#{index}" %>
+    <%= hidden_field_tag "times", @bookings.length , class: "times" %>
+    <%= hidden_field_tag "times_child", venue.second.length,
+      class: "times-child-#{venue.first.id}" %>
+    <div class="block custom-block" id= "form-border-<%= venue.first.id %>">
+      <div class="block-title margin-left-0 margin-right-0 padding-0-15">
+        <h2 class="venue-name"><strong><%= venue.first.name %></strong></h2>
+      </div>
+      <div class="block-section padding-0-15">
+        <h4 class="venue-address"> <%= venue.first.address.details %></h4>
+        <address>
+          <i class="fa fa-phone"></i> <%= venue.first.phone_number %><br>
+          <i class="fa fa-envelope-o"></i>
+          <a href="javascript:"><%= venue.first.email %></a>
+        </address>
+      </div>
+      <div class="table-responsive padding-0-15">
+        <table class="table table-vcenter bookings-table">
+          <tbody>
+            <% venue.second.each_with_index do |booking, index2| %>
+              <%= hidden_field_tag "booking_id",
+                booking.id, class: "#{index}-#{index2}" %>
+              <%= render "layouts/content_of_booking",
+                booking: booking, type: Settings.content_booking.type.booking %>
+            <% end %>
+            <tr class="active">
+              <td colspan="12" class="text-right">
+                <span class="h3">
+                  <strong><%= t ".total_due" %></strong>
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="h3">
+                  <strong id="total-price-<%= venue.first.id %>"></strong>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="clearfix padding-0-15">
+        <div class="btn-group pull-right">
+          <%= hidden_field_tag "total_paid", {}, id: "total-price-form" %>
+          <%= hidden_field_tag "booking_ids",
+            venue.second, id: "booking_ids" %>
+          <%= button_tag t(".request"),
+            class: "btn btn-danger button-request", id: "#{venue.first.id}-#{index}" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

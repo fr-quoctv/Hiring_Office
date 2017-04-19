@@ -1,0 +1,50 @@
+<%= javascript_include_tag "venue_market/edit.js" %>
+<div class="media-body footer-section line-break-block">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="venue-name"><span><%= @venue.name %></span></div>
+      <div class="block full">
+        <div class="block-title">
+          <%= render "shared/form_outline", active_id: "marketplace" %>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <div class="tab-content">
+              <%= hidden_field_tag "venue_id", @venue.id, id: "venue-id" %>
+              <label  class="switch switch-primary">
+                <% if @venue.status? %>
+                  <%= t(".list_space_off")%>
+                <% else %>
+                  <%= t(".list_space_on")%>
+                <% end %>
+                <%= check_box_tag :status, @venue.status, @venue.status %>
+                <span></span>
+              </label>
+              <div id="hidden-form">
+                <div class="payment" id="payment_block">
+                  <div class = "col-md-12" id = "payment_methods_block">
+                    <%= render "payment_methods" %>
+                  </div>
+                  <div>
+                    <%= render "add_payment_methods" %>
+                  </div>
+                  <%= render "add_banking_account" %>
+                  <%= render "edit_banking_account" %>
+                  <%= render "add_paypal_account" %>
+                  <%= render "add_info_for_payment_directly" %>
+                  <%= render "edit_info_for_payment_directly" %>
+                </div>
+                <hr class="style-two">
+                  <%= link_to venue_spaces_path(@venue), class: "btn btn-primary pull-right" do %>
+                    <%= t "next" %> <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  <% end %>
+                </hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

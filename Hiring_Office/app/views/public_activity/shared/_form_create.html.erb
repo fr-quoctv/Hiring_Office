@@ -1,0 +1,6 @@
+<% if activity.trackable %>
+  <strong><%= notice %></strong>
+  <strong><%= activity.trackable.name %></strong>
+<% else %>
+  <p><%= t "admin.activities.error" %></p>
+<% end %>

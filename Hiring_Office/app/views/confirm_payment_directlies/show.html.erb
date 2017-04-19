@@ -1,0 +1,49 @@
+<%= provide :title, t("confirm_payment_directly.title") %>
+<%= javascript_include_tag "confirm_payment_directlies/show.js" %>
+<div class="row full-height margin-left-0 margin-right-0">
+  <div class="content-header margin-left-0 margin-right-0">
+    <div class="header-section">
+      <h1>
+        <i class="gi gi-usd"></i><%= t "confirm_payment_directly.confirm" %>
+      </h1>
+    </div>
+  </div>
+  <% @venues.each_with_index do |venue, parent_index| %>
+    <% if venue.orders.have_order_payment_directly.present? %>
+      <div class="block custom-block margin-left-0 margin-right-0">
+        <div class="block-title margin-left-0 margin-right-0">
+          <h2 class="venue-name"><strong><%= venue.name %></strong></h2>
+        </div>
+        <div class="block-section padding-0-15">
+          <h4 class="venue-address"><%= venue.address_details %></h4>
+          <address>
+            <i class="fa fa-phone"></i> <%= venue.phone_number %><br>
+            <i class="fa fa-envelope-o"></i>
+            <%= link_to venue.name, venue, target: "blank" %>
+          </address>
+        </div>
+        <div class="table-responsive padding-0-15">
+          <% if venue.payment_methods.find_by(payment_type: "directly").present? %>
+            <table class="table table-vcenter bookings-table">
+              <tbody>
+                <%= render "confirm_payment_directlies/title_status" %>
+                <% venue.orders.have_order_payment_directly.each_with_index do |order, index| %>
+                  <% order.bookings.each_with_index do |booking, booking_index| %>
+                    <% if booking.accepted? %>
+                      <%= hidden_field_tag :booking_id, booking.id,
+                        class: "booking_id-#{venue.id}", id: booking.state %>
+                      <%= render "layouts/content_of_order_payment_directly", booking: booking,
+                        type: Settings.content_booking.type.store_booking %>
+                      <%= render "confirm_payment_directlies/information_payment_directlies", order: order %>
+                      <%= render "confirm_payment_directlies/checkbox_confirm_directlies", order: order%>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

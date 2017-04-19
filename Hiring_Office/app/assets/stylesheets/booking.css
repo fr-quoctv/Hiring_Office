@@ -1,0 +1,79 @@
+.form_payment_directly{
+  background: #FFF;
+  vertical-align: center;
+  width: auto;
+  border-radius: 10px;
+}
+.form-alert{
+  display: none;
+  padding: 24px !important;
+}
+.image_tag{
+  width: 200px;
+  height: 100px;
+}
+.request-all{
+  margin-bottom: 20px;
+}
+.custom-block {
+  border: none !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.padding-0-15 {
+  padding: 0px 15px;
+}
+.margin-10-0 {
+  margin: 10px 0px !important;
+}
+.height-45 {
+  max-height: 45px;
+}
+h2.venue-name, h4.venue-address {
+  color: #00464f !important;
+}
+.margin-bot-70 {
+  margin-bottom: 70px !important;
+}
+#modal_label_message{
+  color: #000 !important;
+  font-weight: bold !important;
+  text-align: center;
+}
+#hide_payment_directly{
+  display: none;
+}
+.display-none{
+  display: none;
+}
+.form_old_information{
+  vertical-align: center;
+  width: auto;
+  border-radius: 10px;
+}
+.btn_payment{
+  margin-left: 20px;
+}
+#label-pending{
+  font-size: 100%;
+}
+
+.attribute{
+  background-color: #FFF;
+  border-radius: 10px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+}
+
+.display-widget{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form_information_banking{
+  background: #FFF;
+  vertical-align: center;
+}

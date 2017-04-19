@@ -1,0 +1,6 @@
+<% if @payment_method.errors.any? %>
+  $('#error').html('<%= j render "shared/error_messages", object: @payment_method %>');
+<% else %>
+  <% flash[:success] = t "payment_methods.create_success" %>
+  window.location = '<% edit_venue_venue_market_path %>'
+<% end %>

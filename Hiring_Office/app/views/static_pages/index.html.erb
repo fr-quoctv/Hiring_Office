@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= full_title %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "application", media: "all",
+      "data-turbolinks-track": true %>
+    <%= javascript_include_tag "application",
+      "data-turbolinks-track": true %>
+    <%= javascript_include_tag "static_pages.js" %>
+    <%= render "layouts/shared/shim" %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiNNIpP8sLtpWlcwLuv_ZqA1NQnbtm_Dk&libraries=places"></script>
+  </head>
+  <body>
+    <%= render "layouts/messages" %>
+    <%= render "layouts/shared/online_support" if user_signed_in? %>
+    <header id="navigation" class="navbar navbar-inverse header-index">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+            data-target=".navbar-collapse">
+            <span class="sr-only"><%= t ".toggle_navigation" %></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#body">
+            <h1 id="logo"><%= t "layout.site_name" %></h1>
+          </a>
+        </div>
+        <nav class="collapse navbar-collapse navbar-right" role="Navigation">
+          <ul id="nav" class="nav navbar-nav">
+            <% if user_signed_in? %>
+              <li class="current active index-user-name">
+                <%= link_to edit_user_path(current_user) do %>
+                  <%= t "home.hello" %><%= current_user.name %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to t("layout.logout"), destroy_user_session_path,
+                  method: :delete %>
+              </li>
+            <% else %>
+              <li class="current active index-user-name">
+                <%= link_to t("layout.login"), new_user_session_url %>
+              </li>
+              <li>
+                <%= link_to t("layout.signup"), new_user_registration_url %>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
+        <nav role="Navigation" style="padding-top: 2%;">
+          <li class="dropdown chosen-language">
+            <% if session[:locale].present? %>
+              <%= link_to url_for(locale: session[:locale]), class:"dropdown-toggle", data: {toggle: "dropdown"} do %>
+                <%= image_tag "flag/#{session[:locale]}.png", class: "icon-language" %>
+                <%= Settings.languages[session[:locale]] %>
+                <i class="fa fa-angle-down"></i>
+              <% end %>
+            <% else %>
+              <%= link_to url_for(locale: :en), class:"dropdown-toggle", data: {toggle: "dropdown"} do %>
+                <%= image_tag "flag/en.png", class: "icon-language" %>
+                <%= Settings.languages.en %>
+                <i class="fa fa-angle-down"></i>
+              <% end %>
+            <% end %>
+            <ul class="dropdown-menu choose-language-index" role="menu">
+              <% Settings.languages.keys.each do |lang| %>
+                <%= link_to url_for(locale: lang) do %>
+                  <%= image_tag "flag/#{lang}.png", class: "icon-language" %>
+                  <%= Settings.languages[lang] %>
+                <% end %>
+                <br/>
+              <% end %>
+            </ul>
+          </li>
+        </nav>
+      </div>
+    </header>
+    <section id="search_section" class="bg-one">
+      <div id="home-carousel" class="carousel slide carousel-html"
+        data-ride="carousel" data-interval="4000">
+        <div class="row index-search-space">
+          <div class="title text-center wow fadeIn" data-wow-duration="1500ms" >
+            <h2>
+              <%= t ".type" %> <span class="color"><%= t ".somewhere" %></span>
+            </h2>
+            <div class="border"></div>
+          </div>
+          <%= form_tag search_spaces_path, method: :get, id: "search-space-form" do %>
+            <div id="custom-search-input">
+              <div class="input-group col-md-8 margin-auto">
+                <%= text_field_tag :search, params[:search],
+                  placeholder: t("home.search"),
+                  class: "form-control search-query", id: "pac-input" %>
+                <span class="input-group-btn">
+                  <button class="btn btn-danger" type="submit">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
+          <li data-target="#home-carousel" data-slide-to="1"></li>
+          <li data-target="#home-carousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class="carousel-caption">
+              <div class="animated bounceInRight">
+                <h2><%= t ".carousel1" %></h2>
+                <p><%= t ".carousel_line" %></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="carousel-caption">
+              <div class="animated bounceInDown">
+                <h2><%= t ".carousel2" %></h2>
+                <p><%= t ".carousel_line" %></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="carousel-caption">
+              <div class="animated bounceInUp">
+                <h2><%= t ".carousel3" %></h2>
+                <p><%= t ".carousel_line" %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav id="nav-arrows" class="nav-arrows hidden-xs
+          hidden-sm visible-md visible-lg">
+          <%= link_to "#home-carousel", data: {slide: "prev"},
+            class: "sl-prev hidden-xs" do %>
+            <i class="fa fa-angle-left fa-3x"></i>
+          <% end %>
+          <%= link_to "#home-carousel", data: {slide: "next"},
+            class: "sl-next hidden-xs" do %>
+            <i class="fa fa-angle-right fa-3x"></i>
+          <% end %>
+        </nav>
+      </div>
+    </section>
+    <section id="testimonial" class="parallax-section">
+      <div class="container">
+        <div class="sub-title text-center wow fadeInDown" data-wow-duration="500ms">
+          <h3><%= t ".our_team" %></h3>
+        </div>
+        <div id="testimonials-carousel" class="carousel slide carousel-html" data-ride="carousel" data-interval="4000">
+          <ol class="carousel-indicators carousel-indicators-custom">
+            <li data-target="#testimonials-carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="1"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="2"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="3"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="4"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="5"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="6"></li>
+            <li data-target="#testimonials-carousel" data-slide-to="7"></li>
+          </ol>
+          <div class="carousel-inner text-center">
+            <div class="item text-center active">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/anhtrung.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name1" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote1" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/anhdieu.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name2" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote2" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/anhtrananh.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name3" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote3" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/chien.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name4" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote4" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/dung.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name5" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote5" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/doanh.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name6" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote6" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/giang.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name7" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote6" %></p>
+                </div>
+              </div>
+            </div>
+            <div class="item text-center">
+              <div class="client-thumb">
+                <%= image_tag "placeholders/avatars/doan.jpg",
+                  class: "img-responsive" %>
+              </div>
+              <div class="client-info">
+                <div class="client-meta">
+                  <h3><%= t ".name8" %></h3>
+                </div>
+                <div class="client-comment">
+                  <p><%= t ".quote6" %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="footer" id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-3 col-xs-12">
+              <h3 class="text-center"><%= t "home.about_us" %></h3>
+              <p class = "col-md-12">
+                <div class = "col-lg-3 text-left">
+                  <a href="http://framgia.com" target="_blank">
+                    <img src="http://poll.framgia.vn/uploads/images/logo.png">
+                  </a>
+                </div>
+                <div class="col-lg-9 text-color">
+                  <p>
+                    <b><%= t "cwsb" %></b>
+                  </p>
+                  <%= t "coppy" %></p>
+                  <%= t "reserved" %>
+                </div>
+              </p>
+            </div>
+            <div class="col-sm-3 col-xs-12">
+              <h3 class="text-center"><%= t "home.contact" %></h3>
+              <ul>
+                <li><a target="_blank" class="fa fa-map-marker"
+                  href="https://www.google.com/maps/search/+13F+Keangnam+Landmark+72+Tower,+Plot+E6,
+                  +Pham+Hung+Road,+Nam+Tu+Liem+District.,+Ha+Noi/@21.0159095,105.7844873,17z"> <%= t "home.place" %></a></li>
+                <li><a class="fa fa-phone" href="#"> <%= t "home.phone" %></a></li>
+                <li><a class="fa fa-envelope-o" href="#"> <%= t "home.email" %></a></li>
+              </ul>
+            </div>
+            <div class="col-sm-3 col-xs-12 text-center">
+              <h3><%= t "home.support" %></h3>
+              <a target="_blank" class="color-white"
+                href="https://drive.google.com/open?id=0B5H0vEUdbVhCcmhGT0VFclQ4XzA">
+                <i class="fa fa-file-pdf-o"></i> <%= t "layout.guide" %>
+              </a>
+              </p>
+              <a target="_blank" class="color-white"
+                href="https://docs.google.com/forms/d/1ZCrWYLR_hIqKqaiddJasSBJ4AdL-L4kbdT0k_QetK6c">
+                <i class="fa fa-commenting-o"></i></i> <%= t "layout.feedback" %>
+              </a>
+            </div>
+            <div class="col-sm-3 col-xs-12 text-center">
+              <h3><%= t "home.follow_us" %></h3>
+              <ul class="social">
+                <li class="facebook"><a target="_blank"
+                  href="https://www.facebook.com/groups/119543551582357">
+                  <i class="fa fa-facebook"></i></a></li>
+                <li class="google_plus"><a target="_blank"
+                  href="https://plus.google.com/110329682908618087419">
+                  <i class="fa fa-google-plus"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <p class="text-center"><%= t "home.link_footer" %></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

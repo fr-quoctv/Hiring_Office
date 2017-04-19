@@ -1,0 +1,79 @@
+.col-md-8 .btn-submit {
+  position: relative;
+  display: block;
+  padding: 2% 5%;
+  color: #FFF;
+  margin: 0 auto;
+  background: #1abc9c;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  width: 25%;
+  border: 1px solid #16a085;
+  border-width: 1px 1px 3px;
+  margin-bottom: 10px;
+  float: right;
+  margin-top: 20px;
+}
+.col-md-8 .btn-submit:hover {
+  background: #109177;
+}
+.change-permistion ul {
+  list-style-type:none;
+  padding: 0px;
+}
+.col-md-11 .tab-content .col-md-8 .change-permistion {
+  margin-bottom: 80px;
+}
+.change-permistion ul li {
+  display:inline;
+}
+.change-permistion ul a {
+  text-decoration:none;
+  width:25%;
+  height:83px;
+  float:left;
+  background:#00464f;
+  color:#fff;
+  font-weight:bold;
+  text-align:center;
+  line-height:35px;
+  border-left:1px solid #fff;
+}
+.disabled {
+  background: #d9d5d2 !important;
+  pointer-events: none;
+  cursor: default;
+}
+.change-permistion ul a:hover a:focus {
+  background: #109177;
+}
+.change-permistion ul a:focus {
+  background: #109177;
+}
+.list-group {
+  background-color: #fff;
+  color: #000;
+  position: absolute;
+  z-index: 99999;
+}
+.permission-role {
+  background: #f5f5f5;
+}
+.user-role {
+  float: left;
+}
+ h1.permissions  {
+  font-size: 40px !important;
+  color: #428bca !important;
+}
+.user-search {
+  padding-left: 0px !important;
+}
+.col-md-12 .col-md-8 .custom-width {
+  width: 800px;
+  height: 50px;
+}
+.margin-left-80 {
+  margin-left: 80px;
+}

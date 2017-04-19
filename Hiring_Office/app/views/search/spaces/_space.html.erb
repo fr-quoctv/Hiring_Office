@@ -1,0 +1,42 @@
+<div class="col-md-6 search_space search_space_detail" id="space_type"
+  data-price="<%= space.price_per_day.price %>" data-status="<%= space.space_type %>"
+  data-rate="<%= check_avg space %>">
+  <div class="widget">
+    <div class="widget-extra-full themed-background-dark">
+      <div id="widget-carousel-<%= space.id %>"
+        class="carousel slide remove-margin">
+        <%= rating_for space, Settings.rate, disable_after_rate: false %>
+        <% if space.images.any? %>
+          <div class="carousel-inner">
+            <% space.images.each do |image| %>
+              <div class="item <%= first_active space.images, image %>">
+                <%= link_to search_space_path(space), remote: true, target: :_blank do %>
+                  <%= image_tag image.picture.url, alt: image.title,
+                    class: "img-responsive custom-image" %>
+                  <%= render "name_and_price_space", space: space %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <% if space.images.size > Settings.min_quantity %>
+            <a class="left carousel-control"
+              href="#widget-carousel-<%= space.id %>"  data-slide="prev">
+                <span><i class="fa fa-chevron-left"></i></span>
+            </a>
+            <a class="right carousel-control"
+              href="#widget-carousel-<%= space.id %>" data-slide="next">
+                <span><i class="fa fa-chevron-right"></i></span>
+            </a>
+          <% end %>
+        <% else %>
+          <div class="item-not-image">
+            <%= link_to search_space_path(space), remote: true, target: :_blank do %>
+            <%= image_tag "not_available", class: "img-responsive custom-image" %>
+            <%= render "name_and_price_space", space: space %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

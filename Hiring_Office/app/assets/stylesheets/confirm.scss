@@ -1,0 +1,24 @@
+.request-all{
+  margin-bottom: 20px;
+  .check-all{
+    float: right;
+    position: relative;
+    top: 14px;
+    right: 35px;
+  }
+  .label-status{
+    float: right;
+    position: relative;
+    right: 20px;
+    font-size: 17px;
+  }
+}
+#confirm-button{
+  width: 80%;
+  top: 10px;
+  left: 5%;
+}
+.total_due{
+  position: relative;
+  left: 300px;
+}

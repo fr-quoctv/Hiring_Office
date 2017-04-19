@@ -1,0 +1,65 @@
+<div class="row margin-left-0 margin-right-0">
+  <div class="col-sm-12 padding-left-0 padding-right-0">
+    <div class="venue-name"><span><%= @venue.name %></span></div>
+  </div>
+  <div class="block full full-height">
+    <div class="block-title">
+      <%= render "shared/form_outline", active_id: "admins" %>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tab-content">
+          <div class="col-md-6">
+            <h1 class="permissions"><b><%= t "admin.admin" %></b></h1>
+            <div class="col-md-12 search-role-fix">
+              <%= search_form_for @q, url: search_users_path, method: :get, id: "search_user",
+                class: "navbar-form navbar-left user-search" do |f| %>
+                <%= f.text_field :name_cont, placeholder: t(".user"), class: "form-control margin-bot-15 custom-width" %>
+                <div id = "result_search"></div>
+              <% end %>
+            </div>
+            <%= simple_form_for [@venue, @user_role_venue] do |user_role| %>
+              <%= user_role.input :user_id, as: :hidden,
+                input_html: {class: "form-control margin-bot-15 user-role user_id"} %>
+              <%= user_role.input :type_role, as: :hidden,
+                input_html: {class: "form-control margin-bot-15", id: "type_role"} %>
+              <div class="change-permistion margin-top-15">
+                <ul>
+                  <li>
+                    <a href="#" class="change-role <%= check_owner_existed @venue %>" id="owner" data-value="owner">
+                      <i class="fa fa-lock" aria-hidden="true"></i><br>
+                      <%= t ".owner"%>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="change-role" id="manager" data-value="manager">
+                      <i class="fa fa-lock" aria-hidden="true"></i><br>
+                      <%= t ".manager"%>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="change-role" id="client_service" data-value="client_service">
+                      <i class="fa fa-lock" aria-hidden="true"></i><br>
+                      <%= t ".client_service"%>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="change-role" id= "reception" data-value="reception">
+                      <i class="fa fa-lock" aria-hidden="true"></i><br>
+                      <%= t ".reception"%>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <%= user_role.submit t("save"), class: "btn-submit" %>
+            <% end %>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-3 margin-left-80 permission-role">
+            <%= render "permission" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

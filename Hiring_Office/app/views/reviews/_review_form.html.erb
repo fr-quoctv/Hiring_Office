@@ -1,0 +1,11 @@
+<%= form_for @review, remote: true do |f| %>
+  <%= f.text_area :content, class: "form-control review_form_input",
+    placeholder: t("reviews.review_placeholder"),
+    value: @review.content %>
+  <%= f.hidden_field :reviewable_type, value: object.class.name %>
+  <%= f.hidden_field :reviewable_id, value: object.id %>
+  <div class="col-md-12 submit_review_div">
+    <%= f.submit yield(:button_text), class: "btn btn-success submit_review" %>
+    <br/>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<%= image_tag "payment_methods/paypal_logo.png", class: "icon_tag" %>
+<%= t "venue_markets.edit.add_new_paypal" %>
+<div class = "pull-right">
+  <button id = "btn_add_paypal" data-toggle="modal" data-target="#modal_add_method"
+    class="btn btn-primary payment-method btn-fix">
+    <%= t "venue_markets.edit.btn_add_paypal" %>
+  </button>
+</div>
+<hr class="hrule-divider--lg">
+<%= image_tag "payment_methods/directly_logo.png", class: "icon_tag" %>
+<%= t "venue_markets.edit.add_new_directly" %>
+<div class = "pull-right">
+  <div class = "btn-fix">
+    <% if @payment_directly %>
+      <%= link_to t("venue_markets.edit.btn_del_directly"),
+        venue_payment_method_path(@venue, @payment_directly),
+        method: :delete, data: { confirm: t("venue_markets.edit.confirm_delete")},
+        class: "btn btn-danger payment-method form-control" %>
+    <% else %>
+        <button id="btn_add_directly" data-toggle="modal" data-target="#modal_add_directly"
+          class="btn btn-primary payment-method btn-fix">
+          <%= t "venue_markets.edit.btn_add_directly" %>
+        </button>
+    <% end %>
+  </div>
+</div>
+<hr class="hrule-divider--lg">
+<%= image_tag "payment_methods/banking_logo.png", class: "icon_tag" %>
+<%= t "venue_markets.edit.add_new_banking" %>
+<div class = "pull-right">
+  <div class = "btn-fix">
+    <% if @payment_banking %>
+      <%= link_to t("venue_markets.edit.btn_del_banking"),
+        venue_payment_method_path(@venue, @payment_banking),
+        method: :delete, data: { confirm: t("venue_markets.edit.confirm_delete")},
+        class: "btn btn-danger payment-method form-control" %>
+    <% else %>
+      <button data-toggle="modal" data-target="#modal_add_banking"
+        class="btn btn-primary payment-method btn-fix">
+        <%= t "venue_markets.edit.btn_add_banking" %>
+      </button>
+    <% end %>
+  </div>
+</div>

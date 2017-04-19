@@ -1,0 +1,117 @@
+unit:
+  dollar: "$"
+notification:
+  requested: "requested"
+  accepted: "accepted"
+  index: 12
+  limit: 20
+  avatar_size: "40x40"
+price_per_day: 1
+radius_search_in_miles: 5
+default_duration: 1
+default_quantity: 1
+default_rating_avg: 0
+min_duration: 1
+min_quantity: 1
+working_to: "8:00"
+working_from: "17:00"
+status_open: "open"
+status_close: "close"
+default_latitude: 0
+default_longitude: 0
+default_map_zoom: 16
+span_warning: "warning"
+span_success: "success"
+span_danger: "danger"
+span_info: "info"
+span_primary: "primary"
+reject_history: "Reject history"
+request_history: "Request history"
+accept_history: "Accept history"
+order_history: "Order history"
+state_pending: 0
+requested: 1
+accepted: 2
+rejected: 3
+status_pending: 1
+status:
+  rejected: "reject"
+  accept: "accept"
+  request: "request"
+directly: 0
+paypal: 1
+banking: 2
+payment_methods:
+  directly: "directly"
+  paypal: "paypal"
+  banking: "banking"
+day_reject: 1
+default_price: 0
+mail_from: "admin_cwbs@gmail.com"
+mess_success: "success"
+mess_notice: "notice"
+paypal_default_upload: 1
+complete_paypal_status: "Completed"
+content_booking:
+  type:
+    booking: "bookings"
+    booking_history: "history"
+    store_booking: "store_booking"
+owner_role_count: 2
+owner_role: 1
+owner_count: 1
+owner: "owner"
+manager: "manager"
+user: "User"
+client_service : "client_service"
+reception : "reception"
+payment_methods_filter: {all: "", paypal: "Paypal", banking: "UserPaymentBanking" , directly: "UserPaymentDirectly"}
+space_sort_by: {"Sort by": "", "Price: Low to High": price_low, "Price: High to Low": price_high, "Rate: Low to High": rate_low, "Rate: High to Low": rate_high}
+status_filter: {all: "", requested: 0, pending: 1, paid: 2, closed: 3}
+picture_max_size: 5
+admin:
+  users:
+    per_page: 10
+    active: "active"
+    blocked: "blocked"
+    rejected: "reject"
+  venues:
+    per_page: 10
+    per_page_report: 15
+  new_statistics:
+    this_week: "thisweek"
+    this_month: "thismonth"
+    this_year: "thisyear"
+    duration: "duration"
+    users: "users"
+    venues: "venues"
+    spaces: "spaces"
+  page_404_url: "public/404.html"
+  image_admin_size: "100x50"
+  activities:
+    per_page: 50
+  january: 1
+  december: 12
+precision_number: 0
+data_slider_min: 1
+data_slider_max: 1000
+data_slider_step: 1
+data_slider_value: [0,500]
+default_price_range: "$1 - $500"
+booking_type: {hour: "Hour", day: "Day", week: "Week", month: "Month"}
+chart_service:
+  january: 1
+  december: 12
+  booking_of_venue: "booking_of_venue"
+  revenue_of_venue: "revenue_of_venue"
+delay_time: 1
+languages: {en: "English", vi: "Tiếng Việt", jp: "日本の"}
+rate: "rate"
+reviews:
+  per_loading: 10
+  avatar_size: "20x20"
+amenities: {wifi: "WiFi", restaurant: "Cafe/ Restaurant", drink: "Coffee/ Tea/ Filtered Water", pet: "Pets allowed", lock: "Lockers"}
+user:
+  venue:
+    per_page: 4
+number_is_chosen: 1
