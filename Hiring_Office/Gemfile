@@ -19,7 +19,7 @@ gem "geocoder"
 gem "faker"
 gem "config"
 gem "simple_form"
-# gem "rmagick"
+# gem 'rmagick', '2.16.0'
 gem "carrierwave"
 gem "cancancan", "1.10"
 gem "reform-rails"
