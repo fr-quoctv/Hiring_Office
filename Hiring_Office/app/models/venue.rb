@@ -29,9 +29,9 @@ class Venue < ApplicationRecord
   after_create :build_working_time
   after_create :add_default_amenity
 
-  validates :description, presence: true
-  validates :name, presence: true
-  validates :block, presence: true
+  # validates :description, presence: true
+  # validates :name, presence: true
+  # validates :block, presence: true
 
   delegate :details, :city, :street_address, :postal_code, :unit,
     to: :address, prefix: true, allow_nil: true
